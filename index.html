@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snack House | Premium Snacks</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f5f6f0;color:#17271c;font-family:Arial,sans-serif}
+header{background:#102b1d;color:white;padding:22px 7%;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:27px;font-weight:900}
+.logo span{color:#b9ed77}
+header a{color:white;text-decoration:none}
+.hero{background:linear-gradient(130deg,#102b1d,#46743c);color:white;text-align:center;padding:75px 15px}
+.hero h1{font-size:42px;margin:0 0 15px}
+.hero p{font-size:17px;color:#e0eadb}
+button{cursor:pointer;border:0;border-radius:8px;padding:12px 17px;font-weight:bold}
+.btn{background:#c3ef7e;color:#17301c}
+section{padding:35px 7%}
+.heading{text-align:center;font-size:29px}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px}
+.card{background:white;border-radius:15px;overflow:hidden;box-shadow:0 5px 20px #0001}
+.card img{width:100%;height:230px;object-fit:contain;background:#edf1e8;padding:10px}
+.details{padding:18px}
+.details h3{margin:0 0 10px}
+.price{font-size:25px;color:#268040;font-weight:bold}
+.details p{color:#68756b;line-height:1.5;min-height:65px}
+.cart,.checkout{background:white;padding:23px;border-radius:15px;box-shadow:0 5px 20px #0001}
+.cart-item{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid #ddd}
+input,textarea,select{width:100%;padding:13px;margin:8px 0 15px;border:1px solid #ccd5c9;border-radius:8px;font-size:15px}
+label{font-weight:bold}
+.total{font-size:21px;font-weight:bold;margin:17px 0}
+footer{background:#102b1d;color:white;text-align:center;padding:30px}
+.small{color:#777;font-size:13px}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">SNACK<span>HOUSE.</span></div>
+<a href="#products">🛒 Shop Now</a>
+</header>
+
+<div class="hero">
+<h1>CRAVINGS? WE GOT YOU! 🔥</h1>
+<p>Fresh, crispy and delicious snacks at your doorstep.</p>
+<button class="btn" onclick="document.getElementById('products').scrollIntoView()">ORDER NOW</button>
+</div>
+
+<section id="products">
+<h2 class="heading">🔥 OUR PREMIUM MENU</h2>
+<div class="products">
+
+<div class="card">
+<img src="jonoon.jpg" alt="Jonoon Snacks">
+<div class="details">
+<h3>Jonoon Snacks</h3>
+<div class="price">Rs. 120</div>
+<p>1 Packet. Crunchy, delicious and full of flavour! Perfect for your snack cravings. 😋</p>
+<button class="btn" onclick="add('Jonoon Snacks',120)">ADD TO CART +</button>
+</div>
+</div>
+
+<div class="card">
+<img src="mfc-fries.jpg" alt="MFC Regular Fries">
+<div class="details">
+<h3>MFC Regular Fries</h3>
+<div class="price">Rs. 60</div>
+<p>1 Dabba. Golden, crispy and tasty fries for your everyday cravings!</p>
+<button class="btn" onclick="add('MFC Regular Fries',60)">ADD TO CART +</button>
+</div>
+</div>
+
+<div class="card">
+<img src="mfc-fries.jpg" alt="MFC Special Fries">
+<div class="details">
+<h3>MFC Special Fries</h3>
+<div class="price">Rs. 120</div>
+<p>1 Dabba. Special flavour, delicious sauces and a mouth-watering taste!</p>
+<button class="btn" onclick="add('MFC Special Fries',120)">ADD TO CART +</button>
+</div>
+</div>
+
+<div class="card">
+<img src="mfc-fries.jpg" alt="51 Masala Dangerous Fries">
+<div class="details">
+<h3>☠️ 51 Masala Dangerous Fries</h3>
+<div class="price">Rs. 400</div>
+<p>THE SPICY CHALLENGE! 🔥 Can you handle the heat? Try our extreme spicy fries if you dare!</p>
+<button class="btn" onclick="add('51 Masala Dangerous Fries Challenge',400)">ACCEPT CHALLENGE 🔥</button>
+</div>
+</div>
+
+</div>
+</section>
+
+<section>
+<div class="cart">
+<h2>🛒 YOUR CART</h2>
+<div id="cartItems">Your cart is empty.</div>
+<div class="total" id="subtotal">Subtotal: Rs. 0</div>
+</div>
+</section>
+
+<section>
+<h2 class="heading">📦 PLACE YOUR ORDER</h2>
+<div class="checkout">
+<form action="https://formsubmit.co/YOUR_FULL_EMAIL_HERE" method="POST" onsubmit="return prepareOrder()">
+
+<input type="hidden" name="_subject" value="New Snack House Order!">
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="Order Details" id="orderDetails">
+<input type="hidden" name="Subtotal" id="orderSubtotal">
+<input type="hidden" name="Delivery Charges" id="orderDelivery">
+<input type="hidden" name="Grand Total" id="orderTotal">
+
+<label>Full Name</label>
+<input name="Customer Name" required placeholder="Enter your full name">
+
+<label>Mobile Number</label>
+<input name="Phone Number" type="tel" required placeholder="03XXXXXXXXX">
+
+<label>Complete Delivery Address</label>
+<textarea name="Address" required placeholder="House number, street, area..."></textarea>
+
+<label>Delivery Area</label>
+<select id="area" name="Delivery Area" onchange="updateCart()">
+<option value="0">Musa Lane - FREE</option>
+<option value="50">Outside Musa Lane (Within Lyari) - Rs. 50</option>
+<option value="100">Outside Lyari - Rs. 100</option>
+</select>
+
+<div class="total" id="grandTotal">Total: Rs. 0</div>
+<button class="btn" type="submit" style="width:100%;font-size:17px">CONFIRM MY ORDER 🚀</button>
+<p class="small">Your order details will be sent to our email.</p>
+</form>
+</div>
+</section>
+
+<footer>
+<h2>SNACK HOUSE.</h2>
+<p>Good Snacks. Great Taste. ❤️</p>
+<p>Thank you for choosing us!</p>
+</footer>
+
+<script>
+let cart=[];
+
+function add(name,price){
+let item=cart.find(x=>x.name===name);
+if(item)item.qty++;
+else cart.push({name,price,qty:1});
+updateCart();
+}
+
+function updateCart(){
+let box=document.getElementById('cartItems');
+let subtotal=cart.reduce((s,x)=>s+x.price*x.qty,0);
+
+if(cart.length===0){
+box.innerHTML='Your cart is empty.';
+}else{
+box.innerHTML=cart.map((x,i)=>`
+<div class="cart-item">
+<span>${x.name} × ${x.qty} = Rs. ${x.price*x.qty}</span>
+<span>
+<button type="button" onclick="changeQty(${i},-1)">−</button>
+<button type="button" onclick="changeQty(${i},1)">+</button>
+<button type="button" onclick="removeItem(${i})">❌</button>
+</span>
+</div>`).join('');
+}
+
+let delivery=Number(document.getElementById('area').value);
+document.getElementById('subtotal').innerText='Subtotal: Rs. '+subtotal;
+document.getElementById('grandTotal').innerText='Total: Rs. '+(subtotal+delivery);
+}
+
+function changeQty(i,n){
+cart[i].qty+=n;
+if(cart[i].qty<=0)cart.splice(i,1);
+updateCart();
+}
+
+function removeItem(i){
+cart.splice(i,1);
+updateCart();
+}
+
+function prepareOrder(){
+if(cart.length===0){
+alert('Please add products to your cart!');
+return false;
+}
+
+let subtotal=cart.reduce((s,x)=>s+x.price*x.qty,0);
+let delivery=Number(document.getElementById('area').value);
+
+document.getElementById('orderDetails').value=
+cart.map(x=>x.name+' x '+x.qty+' = Rs. '+x.price*x.qty).join('\n');
+
+document.getElementById('orderSubtotal').value='Rs. '+subtotal;
+document.getElementById('orderDelivery').value='Rs. '+delivery;
+document.getElementById('orderTotal').value='Rs. '+(subtotal+delivery);
+
+return true;
+}
+
+updateCart();
+</script>
+</body>
+</html>

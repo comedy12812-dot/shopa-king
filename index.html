@@ -4,536 +4,454 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>SHOPA KING | Premium Snacks</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<title>SHOPA KING - Order Online</title>
 
 <style>
+*{box-sizing:border-box;margin:0;padding:0}
 
-/* =================================
-   SHOPA KING - PREMIUM DESIGN
-================================= */
-
-* {
-    box-sizing: border-box;
-    scroll-behavior: smooth;
+body{
+font-family:Arial,sans-serif;
+background:#f5f6f8;
+color:#252525;
 }
 
-:root {
-    --gold: #f5c76a;
-    --gold2: #ffdf94;
-    --green: #a9f17b;
-    --dark: #080c0b;
-    --card: rgba(20, 29, 25, .85);
+/* LOADING SCREEN */
+
+#loader{
+position:fixed;
+inset:0;
+background:#fff;
+z-index:9999;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+transition:.4s;
 }
 
-body {
-    margin: 0;
-    background: var(--dark);
-    color: #fff;
-    font-family: 'Poppins', sans-serif;
-    overflow-x: hidden;
+.loader-logo{
+font-size:34px;
+font-weight:900;
+color:#e85b32;
+letter-spacing:1px;
 }
 
-/* ANIMATED BACKGROUND */
+.loader-logo span{color:#252525}
 
-body::before {
-    content: "";
-    position: fixed;
-    inset: -50%;
-    z-index: -3;
-    pointer-events: none;
-    background:
-      radial-gradient(circle at 20% 25%, #19472b 0%, transparent 30%),
-      radial-gradient(circle at 80% 60%, #493017 0%, transparent 30%),
-      radial-gradient(circle at 50% 90%, #171b37 0%, transparent 35%);
-    animation: bgMove 15s ease-in-out infinite alternate;
+.spinner{
+width:38px;
+height:38px;
+border:4px solid #eee;
+border-top:4px solid #e85b32;
+border-radius:50%;
+margin-top:25px;
+animation:spin .8s linear infinite;
 }
 
-body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -2;
-    pointer-events: none;
-    opacity: .16;
-    background-image:
-      linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
-    background-size: 45px 45px;
-}
-
-@keyframes bgMove {
-    0% { transform: translate(-3%, -2%) rotate(0deg); }
-    100% { transform: translate(3%, 3%) rotate(8deg); }
+@keyframes spin{
+to{transform:rotate(360deg)}
 }
 
 /* HEADER */
 
-header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    padding: 19px 7%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(7, 13, 10, .85);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(245,199,106,.25);
-    box-shadow: 0 5px 30px #0005;
+header{
+background:white;
+padding:16px 6%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:0 2px 10px #0000000d;
+position:sticky;
+top:0;
+z-index:100;
 }
 
-.logo {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 25px;
-    font-weight: 900;
-    letter-spacing: 1px;
-    color: white;
-    text-shadow: 0 0 20px #f5c76a55;
+.logo{
+font-size:25px;
+font-weight:900;
+color:#e85b32;
 }
 
-.logo span {
-    color: var(--gold);
+.logo span{color:#252525}
+
+.header-btn{
+background:#fff0eb;
+color:#e85b32;
+padding:10px 15px;
+border-radius:8px;
+font-weight:bold;
+border:0;
+cursor:pointer;
 }
 
-header a {
-    color: var(--gold) !important;
-    text-decoration: none;
-    font-weight: 700;
-    transition: .3s;
+/* PAGE */
+
+.page{
+max-width:1100px;
+margin:auto;
+padding:25px 18px;
 }
 
-header a:hover {
-    color: white !important;
-    text-shadow: 0 0 15px var(--gold);
+.hidden{display:none!important}
+
+/* HERO */
+
+.hero{
+background:#e85b32;
+color:white;
+padding:32px 25px;
+border-radius:13px;
+margin-bottom:28px;
 }
 
-/* HERO SECTION */
-
-.hero {
-    position: relative;
-    overflow: hidden;
-    text-align: center;
-    padding: 110px 15px 100px;
-    background:
-      linear-gradient(135deg,rgba(12,35,23,.94),rgba(8,12,11,.8)),
-      radial-gradient(circle at center,#427d3d,transparent);
-    border-bottom: 1px solid rgba(245,199,106,.2);
+.hero h1{
+font-size:30px;
+margin-bottom:10px;
 }
 
-.hero::before {
-    content: "✦";
-    position: absolute;
-    top: 30px;
-    left: 12%;
-    font-size: 40px;
-    color: var(--gold);
-    animation: float 4s infinite ease-in-out;
+.hero p{font-size:15px;opacity:.95}
+
+/* MENU */
+
+.section-title{
+font-size:23px;
+margin-bottom:20px;
 }
 
-.hero::after {
-    content: "✧";
-    position: absolute;
-    bottom: 35px;
-    right: 13%;
-    font-size: 55px;
-    color: var(--green);
-    animation: float 5s infinite ease-in-out reverse;
+.products{
+display:grid;
+grid-template-columns:repeat(2,minmax(0,1fr));
+gap:18px;
 }
 
-@keyframes float {
-    0%,100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-20px) rotate(20deg); }
+.card{
+background:white;
+border-radius:12px;
+overflow:hidden;
+border:1px solid #eee;
+transition:.2s;
 }
 
-.hero h1 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: clamp(28px,5vw,53px);
-    margin: 0 0 20px;
-    color: var(--gold2);
-    text-shadow: 0 0 25px #f5c76a55;
-    animation: heroEnter 1s ease both;
+.card:hover{
+transform:translateY(-3px);
+box-shadow:0 5px 18px #00000012;
 }
 
-.hero p {
-    color: #d5e3d8;
-    font-size: 16px;
-    animation: heroEnter 1.3s ease both;
+.card img{
+width:100%;
+height:180px;
+object-fit:contain;
+background:#fafafa;
+padding:10px;
 }
 
-@keyframes heroEnter {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.details{padding:15px}
+
+.details h3{
+font-size:16px;
+margin-bottom:9px;
 }
 
-/* BUTTONS */
-
-button {
-    cursor: pointer;
-    border: none;
-    border-radius: 10px;
-    padding: 12px 17px;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 800;
-    transition: .3s ease;
+.description{
+font-size:13px;
+color:#777;
+line-height:1.5;
+min-height:55px;
 }
 
-.btn {
-    background: linear-gradient(135deg,#ffe29a,#d49a39,#f5c76a);
-    color: #171207;
-    box-shadow: 0 5px 20px #e8ae4433;
+.price{
+font-size:20px;
+font-weight:bold;
+margin:12px 0;
+color:#292929;
 }
 
-.hero .btn {
-    margin-top: 20px;
-    padding: 15px 35px;
-    font-size: 15px;
-    letter-spacing: 1px;
+.add-btn{
+background:#e85b32;
+color:white;
+border:0;
+padding:11px 14px;
+border-radius:7px;
+font-weight:bold;
+width:100%;
+cursor:pointer;
 }
 
-.btn:hover {
-    transform: translateY(-4px) scale(1.04);
-    box-shadow: 0 10px 30px #f5c76a66;
+.add-btn:hover{background:#cb4724}
+
+/* BOTTOM CART BAR */
+
+.bottom-cart{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:white;
+padding:13px 6%;
+box-shadow:0 -3px 15px #00000015;
+display:none;
+z-index:200;
 }
 
-/* SECTIONS */
-
-section {
-    padding: 55px 7%;
+.bottom-inner{
+max-width:1050px;
+margin:auto;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:15px;
 }
 
-.heading {
-    text-align: center;
-    font-family: 'Orbitron', sans-serif;
-    font-size: clamp(21px,3vw,30px);
-    color: var(--gold);
-    margin-bottom: 35px;
-    text-shadow: 0 0 20px #f5c76a33;
+.view-cart{
+background:#e85b32;
+color:white;
+border:0;
+padding:14px 25px;
+border-radius:8px;
+font-weight:bold;
+cursor:pointer;
 }
 
-/* PRODUCTS GRID */
+/* CART PAGE */
 
-.products {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-    gap: 25px;
+.back-btn{
+border:0;
+background:#fff0eb;
+color:#e85b32;
+padding:10px 15px;
+border-radius:7px;
+font-weight:bold;
+cursor:pointer;
+margin-bottom:20px;
 }
 
-/* PRODUCT CARDS */
-
-.card {
-    position: relative;
-    overflow: hidden;
-    background: var(--card);
-    border: 1px solid rgba(245,199,106,.2);
-    border-radius: 18px;
-    box-shadow: 0 10px 35px #0005;
-    backdrop-filter: blur(15px);
-    transition: .4s ease;
-    animation: cardEnter .8s ease both;
+.cart-box,.checkout-box{
+background:white;
+border-radius:12px;
+padding:22px;
+margin-bottom:20px;
+border:1px solid #eee;
 }
 
-.card:nth-child(2) { animation-delay: .1s; }
-.card:nth-child(3) { animation-delay: .2s; }
-.card:nth-child(4) { animation-delay: .3s; }
-
-@keyframes cardEnter {
-    from {
-        opacity: 0;
-        transform: translateY(35px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.cart-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+padding:15px 0;
+border-bottom:1px solid #eee;
 }
 
-.card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg,transparent,var(--gold),transparent);
-    transition: .6s;
+.qty-controls{
+display:flex;
+align-items:center;
+gap:9px;
 }
 
-.card:hover::before {
-    left: 100%;
+.qty-controls button{
+width:30px;
+height:30px;
+border:0;
+border-radius:6px;
+background:#fff0eb;
+color:#e85b32;
+font-weight:bold;
+cursor:pointer;
 }
 
-.card:hover {
-    transform: translateY(-10px);
-    border-color: var(--gold);
-    box-shadow: 0 15px 45px #f5c76a20;
+.remove{
+border:0;
+background:none;
+color:#e85b32;
+cursor:pointer;
+font-size:17px;
 }
 
-.card img {
-    width: 100%;
-    height: 230px;
-    object-fit: contain;
-    background: linear-gradient(135deg,#17251d,#263d2b);
-    padding: 15px;
-    transition: .5s;
+.summary{
+padding-top:15px;
 }
 
-.card:hover img {
-    transform: scale(1.07);
+.summary div{
+display:flex;
+justify-content:space-between;
+margin:12px 0;
+font-size:15px;
 }
 
-.details {
-    padding: 20px;
-}
-
-.details h3 {
-    margin: 0 0 12px;
-    color: white;
-    font-size: 17px;
-}
-
-.price {
-    font-size: 27px;
-    color: var(--gold);
-    font-weight: 900;
-    text-shadow: 0 0 15px #f5c76a33;
-}
-
-.details p {
-    color: #b5c2b9;
-    line-height: 1.7;
-    min-height: 65px;
-    font-size: 13px;
-}
-
-/* CART & CHECKOUT */
-
-.cart, .checkout {
-    background: rgba(18,29,23,.88);
-    border: 1px solid rgba(245,199,106,.25);
-    border-radius: 20px;
-    padding: 25px;
-    box-shadow: 0 12px 40px #0005;
-    backdrop-filter: blur(18px);
-}
-
-.cart h2 {
-    color: var(--gold);
-    font-family: 'Orbitron',sans-serif;
-    font-size: 21px;
-}
-
-.cart-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 15px 0;
-    border-bottom: 1px solid #ffffff20;
-    color: #e5eae5;
-}
-
-.cart-item button {
-    padding: 7px 12px;
-    background: #263a2b;
-    color: white;
-    margin: 2px;
-}
-
-.cart-item button:hover {
-    background: var(--gold);
-    color: black;
-}
-
-.total {
-    font-size: 21px;
-    font-weight: 900;
-    margin: 20px 0;
-    color: var(--gold);
+.grand{
+font-size:21px!important;
+font-weight:bold;
+color:#e85b32;
+border-top:1px solid #eee;
+padding-top:15px;
 }
 
 /* FORM */
 
-label {
-    font-weight: 600;
-    color: #e8d9ae;
+label{
+font-weight:bold;
+font-size:14px;
+display:block;
+margin-top:16px;
 }
 
-input, textarea, select {
-    width: 100%;
-    padding: 14px;
-    margin: 8px 0 18px;
-    border: 1px solid #536456;
-    border-radius: 10px;
-    background: #101a14;
-    color: white;
-    font-family: 'Poppins',sans-serif;
-    font-size: 14px;
-    outline: none;
-    transition: .3s;
+input,textarea,select{
+width:100%;
+padding:13px;
+border:1px solid #ddd;
+border-radius:7px;
+margin-top:8px;
+font-family:Arial,sans-serif;
+font-size:14px;
+background:white;
+outline:none;
 }
 
-input:focus, textarea:focus, select:focus {
-    border-color: var(--gold);
-    box-shadow: 0 0 15px #f5c76a25;
+input:focus,textarea:focus,select:focus{
+border-color:#e85b32;
 }
 
-input::placeholder, textarea::placeholder {
-    color: #87978a;
+textarea{
+min-height:90px;
+resize:vertical;
 }
 
-select option {
-    background: #101a14;
-    color: white;
+.confirm-btn{
+width:100%;
+padding:15px;
+border:0;
+border-radius:8px;
+background:#e85b32;
+color:white;
+font-size:16px;
+font-weight:bold;
+margin-top:22px;
+cursor:pointer;
 }
 
-.checkout .btn {
-    min-height: 52px;
-    font-size: 15px;
+.confirm-btn:hover{background:#ca4725}
+
+/* SUCCESS */
+
+#success{
+background:white;
+border-radius:13px;
+padding:40px 20px;
+text-align:center;
+border:1px solid #eee;
 }
 
-.small {
-    color: #9eaaa1;
-    font-size: 12px;
-    text-align: center;
+.success-icon{
+font-size:55px;
+margin-bottom:15px;
+}
+
+#success h2{color:#239b58;margin-bottom:12px}
+
+.continue-btn{
+background:#e85b32;
+color:white;
+border:0;
+padding:13px 25px;
+border-radius:8px;
+margin-top:20px;
+cursor:pointer;
+font-weight:bold;
 }
 
 /* FOOTER */
 
-footer {
-    position: relative;
-    overflow: hidden;
-    background: #080e0a;
-    border-top: 1px solid #f5c76a55;
-    color: white;
-    text-align: center;
-    padding: 40px 15px;
+footer{
+background:white;
+text-align:center;
+padding:25px;
+color:#777;
+margin-top:40px;
+font-size:13px;
 }
 
-footer h2 {
-    font-family: 'Orbitron',sans-serif;
-    color: var(--gold);
-    letter-spacing: 2px;
-    text-shadow: 0 0 20px #f5c76a55;
+footer h2{
+color:#e85b32;
+margin-bottom:8px;
 }
 
-footer p {
-    color: #aebbb1;
+/* MOBILE */
+
+@media(max-width:600px){
+
+header{padding:14px 5%}
+
+.logo{font-size:21px}
+
+.page{padding:20px 13px}
+
+.hero{padding:25px 18px}
+
+.hero h1{font-size:24px}
+
+.products{gap:10px}
+
+.card img{height:130px}
+
+.details{padding:11px}
+
+.details h3{font-size:14px}
+
+.description{font-size:12px;min-height:65px}
+
+.price{font-size:18px}
+
+.add-btn{font-size:12px;padding:10px 5px}
+
+.cart-box,.checkout-box{padding:15px}
+
+.bottom-inner{gap:8px}
+
+.view-cart{padding:12px 15px;font-size:12px}
+
+.cart-row{font-size:13px;flex-wrap:wrap}
+
 }
-
-/* MOBILE RESPONSIVE */
-
-@media(max-width:600px) {
-
-    header {
-        padding: 16px 5%;
-    }
-
-    .logo {
-        font-size: 19px;
-    }
-
-    .hero {
-        padding: 85px 15px;
-    }
-
-    section {
-        padding: 35px 5%;
-    }
-
-    .products {
-        grid-template-columns: repeat(2,minmax(0,1fr));
-        gap: 12px;
-    }
-
-    .card {
-        border-radius: 13px;
-    }
-
-    .card img {
-        height: 145px;
-        padding: 8px;
-    }
-
-    .details {
-        padding: 12px;
-    }
-
-    .details h3 {
-        font-size: 14px;
-    }
-
-    .details p {
-        font-size: 11px;
-        min-height: 85px;
-    }
-
-    .price {
-        font-size: 21px;
-    }
-
-    .details .btn {
-        width: 100%;
-        padding: 10px 5px;
-        font-size: 10px;
-    }
-
-    .cart, .checkout {
-        padding: 17px;
-    }
-
-    .cart-item {
-        font-size: 12px;
-    }
-}
-
-/* REDUCED MOTION */
-
-@media(prefers-reduced-motion:reduce) {
-    *, *::before, *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-        transition-duration: .01ms !important;
-    }
-}
-
 </style>
 </head>
 
 <body>
 
-<header>
-<div class="logo">SHOPA <span>KING.</span></div>
-<a href="#products">🛒 SHOP NOW</a>
-</header>
+<!-- LOADING -->
 
-<div class="hero">
-<h1>WELCOME TO SHOPA KING 👑</h1>
-<p>Fresh, crispy and delicious snacks at your doorstep.</p>
-<button class="btn" onclick="document.getElementById('products').scrollIntoView()">EXPLORE MENU 🚀</button>
+<div id="loader">
+<div class="loader-logo">SHOPA <span>KING.</span></div>
+<p style="margin-top:10px;color:#777;font-size:13px">Fresh Snacks. Great Taste.</p>
+<div class="spinner"></div>
 </div>
 
-<section id="products">
-<h2 class="heading">🔥 OUR PREMIUM MENU</h2>
+<!-- HEADER -->
+
+<header>
+<div class="logo">SHOPA <span>KING.</span></div>
+<button class="header-btn" onclick="showMenu()">🏠 Home</button>
+</header>
+
+<!-- MENU PAGE -->
+
+<div id="menuPage" class="page">
+
+<div class="hero">
+<h1>Hungry? Order Now! 🍟</h1>
+<p>Your favourite snacks, fresh and delicious.</p>
+</div>
+
+<h2 class="section-title">🔥 Our Menu</h2>
+
 <div class="products">
 
 <div class="card">
 <img src="jonoon.jpg" alt="Jonoon Snacks">
 <div class="details">
 <h3>Jonoon Snacks</h3>
+<p class="description">1 Packet. Crunchy, delicious and full of flavour! 😋</p>
 <div class="price">Rs. 120</div>
-<p>1 Packet. Crunchy, delicious and full of flavour! Perfect for your snack cravings. 😋</p>
-<button class="btn" onclick="add('Jonoon Snacks',120)">ADD TO CART +</button>
+<button class="add-btn" onclick="add('Jonoon Snacks',120)">ADD TO CART +</button>
 </div>
 </div>
 
@@ -541,9 +459,9 @@ footer p {
 <img src="mfc-fries.jpg" alt="MFC Regular Fries">
 <div class="details">
 <h3>MFC Regular Fries</h3>
+<p class="description">1 Dabba. Golden, crispy and tasty fries!</p>
 <div class="price">Rs. 60</div>
-<p>1 Dabba. Golden, crispy and tasty fries for your everyday cravings!</p>
-<button class="btn" onclick="add('MFC Regular Fries',60)">ADD TO CART +</button>
+<button class="add-btn" onclick="add('MFC Regular Fries',60)">ADD TO CART +</button>
 </div>
 </div>
 
@@ -551,41 +469,74 @@ footer p {
 <img src="mfc-fries.jpg" alt="MFC Special Fries">
 <div class="details">
 <h3>MFC Special Fries</h3>
+<p class="description">1 Dabba. Special flavour and delicious taste!</p>
 <div class="price">Rs. 120</div>
-<p>1 Dabba. Special flavour, delicious sauces and a mouth-watering taste!</p>
-<button class="btn" onclick="add('MFC Special Fries',120)">ADD TO CART +</button>
+<button class="add-btn" onclick="add('MFC Special Fries',120)">ADD TO CART +</button>
 </div>
 </div>
 
 <div class="card">
-<img src="mfc-fries.jpg" alt="51 Masala Dangerous Fries">
+<img src="mfc-fries.jpg" alt="51 Masala Fries">
 <div class="details">
 <h3>☠️ 51 Masala Dangerous Fries</h3>
+<p class="description">THE SPICY CHALLENGE! 🔥 Can you handle the heat?</p>
 <div class="price">Rs. 400</div>
-<p>THE SPICY CHALLENGE! 🔥 Can you handle the heat? Try our extreme spicy fries if you dare!</p>
-<button class="btn" onclick="add('51 Masala Dangerous Fries Challenge',400)">ACCEPT CHALLENGE 🔥</button>
+<button class="add-btn" onclick="add('51 Masala Dangerous Fries Challenge',400)">ACCEPT CHALLENGE 🔥</button>
 </div>
 </div>
 
 </div>
-</section>
+</div>
 
-<section>
-<div class="cart">
-<h2>🛒 YOUR CART</h2>
+<!-- CART BOTTOM BAR -->
+
+<div class="bottom-cart" id="bottomCart">
+<div class="bottom-inner">
+<div>
+<strong id="cartCount">0 Items</strong>
+<div id="cartBarTotal" style="color:#777;font-size:13px">Rs. 0</div>
+</div>
+<button class="view-cart" onclick="showCheckout()">VIEW CART →</button>
+</div>
+</div>
+
+<!-- CHECKOUT PAGE -->
+
+<div id="checkoutPage" class="page hidden">
+
+<button class="back-btn" onclick="showMenu()">← Back to Menu</button>
+
+<h2 class="section-title">🛒 Your Cart</h2>
+
+<div class="cart-box">
 <div id="cartItems">Your cart is empty.</div>
-<div class="total" id="subtotal">Subtotal: Rs. 0</div>
+
+<div class="summary">
+<div>
+<span>Subtotal</span>
+<strong id="subtotal">Rs. 0</strong>
 </div>
-</section>
+<div>
+<span>Delivery Charges</span>
+<strong id="deliveryDisplay">Rs. 0</strong>
+</div>
+<div class="grand">
+<span>Total</span>
+<strong id="grandTotal">Rs. 0</strong>
+</div>
+</div>
+</div>
 
-<section>
-<h2 class="heading">📦 PLACE YOUR ORDER</h2>
-<div class="checkout">
-<form action="jafferandibrahim@gmail.com" method="POST" onsubmit="return prepareOrder()">
+<h2 class="section-title">📍 Delivery Details</h2>
 
-<input type="hidden" name="_subject" value="New Shopa King Order!">
+<div class="checkout-box">
+
+<form action="jafferandibrahim@gmail.com" method="POST" target="orderFrame" onsubmit="return prepareOrder()">
+
+<input type="hidden" name="_subject" value="New Snack House Order!">
 <input type="hidden" name="_template" value="table">
 <input type="hidden" name="_captcha" value="false">
+
 <input type="hidden" name="Order Details" id="orderDetails">
 <input type="hidden" name="Subtotal" id="orderSubtotal">
 <input type="hidden" name="Delivery Charges" id="orderDelivery">
@@ -607,71 +558,192 @@ footer p {
 <option value="100">Outside Lyari - Rs. 100</option>
 </select>
 
-<div class="total" id="grandTotal">Total: Rs. 0</div>
-<button class="btn" type="submit" style="width:100%;font-size:17px">CONFIRM MY ORDER 🚀</button>
-<p class="small">Your order details will be sent to our email.</p>
+<button class="confirm-btn" type="submit">
+CONFIRM MY ORDER 🚀
+</button>
+
+<p style="text-align:center;color:#777;font-size:12px;margin-top:13px">
+Please check your address and mobile number before ordering.
+</p>
+
 </form>
 </div>
-</section>
+
+<!-- ORDER SUCCESS MESSAGE -->
+
+<div id="success" class="hidden">
+<div class="success-icon">🎉</div>
+<h2>Thank You For Ordering!</h2>
+<p>Your order has been received.</p>
+<p style="margin-top:10px;color:#666">
+Aapka order aapko jaldi mil jayega. ❤️
+</p>
+<button class="continue-btn" onclick="newOrder()">ORDER AGAIN</button>
+</div>
+
+</div>
+
+<iframe name="orderFrame" style="display:none"></iframe>
 
 <footer>
-<h2>👑 SHOPA KING.</h2>
+<h2>SHOPA KING.</h2>
 <p>Good Snacks. Great Taste. ❤️</p>
-<p>Thank you for choosing us!</p>
-<p class="small">© 2026 Shopa King. All Rights Reserved.</p>
+<p style="margin-top:10px">Thank you for choosing us!</p>
 </footer>
 
 <script>
+
 let cart=[];
 
+/* LOADING */
+
+window.addEventListener('load',function(){
+setTimeout(function(){
+document.getElementById('loader').style.opacity='0';
+setTimeout(function(){
+document.getElementById('loader').style.display='none';
+},400);
+},1200);
+});
+
+/* ADD TO CART */
+
 function add(name,price){
+
 let item=cart.find(x=>x.name===name);
-if(item)item.qty++;
-else cart.push({name,price,qty:1});
-updateCart();
+
+if(item){
+item.qty++;
+}else{
+cart.push({name,price,qty:1});
 }
+
+updateCart();
+
+document.getElementById('bottomCart').style.display='block';
+
+}
+
+/* UPDATE CART */
 
 function updateCart(){
+
 let box=document.getElementById('cartItems');
+
 let subtotal=cart.reduce((s,x)=>s+x.price*x.qty,0);
 
+let totalItems=cart.reduce((s,x)=>s+x.qty,0);
+
 if(cart.length===0){
+
 box.innerHTML='Your cart is empty.';
+
 }else{
+
 box.innerHTML=cart.map((x,i)=>`
-<div class="cart-item">
-<span>${x.name} × ${x.qty} = Rs. ${x.price*x.qty}</span>
-<span>
+<div class="cart-row">
+
+<div>
+<strong>${x.name}</strong>
+<div style="color:#777;margin-top:5px">Rs. ${x.price} each</div>
+</div>
+
+<div class="qty-controls">
+
 <button type="button" onclick="changeQty(${i},-1)">−</button>
+
+<strong>${x.qty}</strong>
+
 <button type="button" onclick="changeQty(${i},1)">+</button>
-<button type="button" onclick="removeItem(${i})">❌</button>
-</span>
-</div>`).join('');
+
+<button class="remove" type="button" onclick="removeItem(${i})">✕</button>
+
+</div>
+
+<strong>Rs. ${x.price*x.qty}</strong>
+
+</div>
+`).join('');
+
 }
 
-let delivery=Number(document.getElementById('area').value);
-document.getElementById('subtotal').innerText='Subtotal: Rs. '+subtotal;
-document.getElementById('grandTotal').innerText='Total: Rs. '+(subtotal+delivery);
+let deliveryElement=document.getElementById('area');
+let delivery=deliveryElement ? Number(deliveryElement.value) : 0;
+
+document.getElementById('subtotal').innerText='Rs. '+subtotal;
+document.getElementById('deliveryDisplay').innerText='Rs. '+delivery;
+document.getElementById('grandTotal').innerText='Rs. '+(subtotal+delivery);
+
+document.getElementById('cartCount').innerText=totalItems+' Items';
+document.getElementById('cartBarTotal').innerText='Rs. '+subtotal;
+
+if(totalItems===0){
+document.getElementById('bottomCart').style.display='none';
 }
+
+}
+
+/* QUANTITY */
 
 function changeQty(i,n){
+
 cart[i].qty+=n;
-if(cart[i].qty<=0)cart.splice(i,1);
+
+if(cart[i].qty<=0){
+cart.splice(i,1);
+}
+
 updateCart();
+
 }
 
 function removeItem(i){
+
 cart.splice(i,1);
 updateCart();
+
 }
 
+/* PAGE SWITCH */
+
+function showMenu(){
+
+document.getElementById('menuPage').classList.remove('hidden');
+document.getElementById('checkoutPage').classList.add('hidden');
+
+window.scrollTo(0,0);
+
+}
+
+function showCheckout(){
+
+if(cart.length===0){
+alert('Please add products to your cart!');
+return;
+}
+
+document.getElementById('menuPage').classList.add('hidden');
+document.getElementById('checkoutPage').classList.remove('hidden');
+
+document.getElementById('bottomCart').style.display='none';
+
+updateCart();
+
+window.scrollTo(0,0);
+
+}
+
+/* PREPARE ORDER */
+
 function prepareOrder(){
+
 if(cart.length===0){
 alert('Please add products to your cart!');
 return false;
 }
 
 let subtotal=cart.reduce((s,x)=>s+x.price*x.qty,0);
+
 let delivery=Number(document.getElementById('area').value);
 
 document.getElementById('orderDetails').value=
@@ -681,10 +753,44 @@ document.getElementById('orderSubtotal').value='Rs. '+subtotal;
 document.getElementById('orderDelivery').value='Rs. '+delivery;
 document.getElementById('orderTotal').value='Rs. '+(subtotal+delivery);
 
+/* SHOW THANK YOU MESSAGE */
+
+document.querySelector('#checkoutPage .checkout-box').classList.add('hidden');
+
+document.getElementById('success').classList.remove('hidden');
+
+window.scrollTo(0,0);
+
 return true;
+
+}
+
+/* NEW ORDER */
+
+function newOrder(){
+
+cart=[];
+
+document.getElementById('success').classList.add('hidden');
+
+document.querySelector('#checkoutPage .checkout-box').classList.remove('hidden');
+
+document.getElementById('checkoutPage').classList.add('hidden');
+
+document.getElementById('menuPage').classList.remove('hidden');
+
+document.getElementById('bottomCart').style.display='none';
+
+document.querySelector('form').reset();
+
+updateCart();
+
+window.scrollTo(0,0);
+
 }
 
 updateCart();
+
 </script>
 
 </body>
